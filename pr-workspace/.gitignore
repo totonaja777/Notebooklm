@@ -1,0 +1,9 @@
+# ไฟล์สื่อขนาดใหญ่ ไม่ต้อง commit
+media/*
+!media/.gitkeep
+# ผลผลิตรายวัน (ร่าง/รายงาน) เก็บในเครื่อง ไม่ commit อัตโนมัติ
+drafts/*
+!drafts/.gitkeep
+monitoring/brief-*.md
+inbox/replies-*.md
+daily-brief-*.md
