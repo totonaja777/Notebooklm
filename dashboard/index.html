@@ -155,6 +155,20 @@
     box-shadow:0 var(--px) 0 var(--void); border:2px solid var(--frame)}
   .btn.ghost:hover{transform:translateY(2px); box-shadow:0 1px 0 var(--void)}
 
+  /* ===== Connectors ===== */
+  .conns{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:14px}
+  .conn{padding:14px; display:flex; gap:12px; align-items:flex-start}
+  .conn .gem{width:40px;height:40px;flex:0 0 40px; image-rendering:pixelated;
+    border:var(--px) solid var(--frame); background:var(--void)}
+  .conn .cn{font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:.06em}
+  .conn .cstate{font-size:10px; letter-spacing:.12em; text-transform:uppercase; margin-top:2px}
+  .conn .clinked{color:var(--mint)}
+  .conn .cwarn{color:var(--coin)}
+  .conn .cuse{font-size:11px; color:var(--dim); margin-top:7px; line-height:1.45}
+  .conn .cwho{display:flex; flex-wrap:wrap; gap:4px; margin-top:8px}
+  .conn .cwho span{font-size:9px; padding:2px 5px; background:var(--panel2);
+    border:1px solid var(--frame); color:var(--dim); letter-spacing:.04em}
+
   /* ===== Quest + Inventory row ===== */
   .duo{display:grid; grid-template-columns:1.3fr 1fr; gap:16px}
   @media(max-width:760px){ .duo{grid-template-columns:1fr} }
@@ -221,6 +235,7 @@
     <div class="hud">
       <div class="cell bevel"><div class="k label">Party Members</div><div class="v coin" id="hud-party">5</div></div>
       <div class="cell bevel"><div class="k label">Active Quest</div><div class="v mint" id="hud-quest">1</div></div>
+      <div class="cell bevel"><div class="k label">Connectors</div><div class="v mint">4</div></div>
       <div class="cell bevel"><div class="k label">Next Run In</div><div class="v small mint" id="hud-next">--:--:--</div></div>
       <div class="cell bevel"><div class="k label">Guild Status</div><div class="v small mint">● ONLINE</div></div>
     </div>
@@ -228,6 +243,9 @@
 
   <div class="sect"><h2>⚔ Party — สมาชิกทีม</h2><div class="rule"></div></div>
   <div class="party" id="party"></div>
+
+  <div class="sect"><h2>🔌 Connectors — สายเชื่อมภายนอก</h2><div class="rule"></div></div>
+  <div class="conns" id="conns"></div>
 
   <div class="sect"><h2>★ Daily Quest &amp; Inventory</h2><div class="rule"></div></div>
   <div class="duo">
@@ -306,6 +324,21 @@ const INV = [
   { icon:"📝", name:"Drafts", count:0 },
   { icon:"💬", name:"Inbox", count:1 },      // faq.md
   { icon:"🎬", name:"Media", count:0 }
+];
+
+const CONNECTORS = [
+  { id:"gmail", name:"Gmail", sprite:"c_mail", state:"LINKED", stClass:"clinked",
+    account:"totonaja777@gmail.com",
+    use:"อ่านอีเมลเข้า + ร่างคำตอบเป็น Draft (ไม่ส่งเอง)", who:["community-manager","pr-lead"] },
+  { id:"drive", name:"Google Drive", sprite:"c_drive", state:"LINKED · ต้องอนุมัติต่อครั้ง", stClass:"cwarn",
+    account:"เก็บ/แชร์ร่าง & ไฟล์สื่อ",
+    use:"บันทึกร่าง เป็น Google Doc และอัปโหลดไฟล์สื่อ", who:["content-writer","media-monitor","producer","pr-lead"] },
+  { id:"notion", name:"Notion", sprite:"c_notion", state:"LINKED", stClass:"clinked",
+    account:"workspace: FaitTN",
+    use:"ลง media brief, ปฏิทินคอนเทนต์, daily brief", who:["pr-lead","media-monitor","content-writer","community-manager"] },
+  { id:"canva", name:"Canva", sprite:"c_canva", state:"LINKED · 1 brand kit", stClass:"clinked",
+    account:"brand kit: kAG_mdGBN7A",
+    use:"ทำภาพ/โปสเตอร์ตาม brand kit (ร่างในบัญชี)", who:["content-writer","producer"] }
 ];
 
 const PARTY = [
@@ -422,6 +455,61 @@ const SPRITES = {
     ".E..............",
     "................",
     "................"]},
+  c_mail:{ colors:{R:"#ff5c78",w:"#eae7ff"}, rows:[
+    "................",
+    "..RRRRRRRRRRRR..",
+    "..RwRRRRRRRRwR..",
+    "..RRwRRRRRRwRR..",
+    "..RRRwRRRRwRRR..",
+    "..RRRRwRRwRRRR..",
+    "..RRRRRwwRRRRR..",
+    "..RRRRwRRwRRRR..",
+    "..RRRwRRRRwRRR..",
+    "..RRwRRRRRRwRR..",
+    "..RwRRRRRRRRwR..",
+    "..RRRRRRRRRRRR..",
+    "................"]},
+  c_drive:{ colors:{B:"#41e2ba",Y:"#ffd23f",G:"#6c5ce7"}, rows:[
+    "................",
+    "................",
+    ".....BBBB.......",
+    "....BBBBBB......",
+    "...BB....BB.....",
+    "..BB......BB....",
+    ".YYYYYYYYYYGG...",
+    "YYYYYYYYYYYYGG..",
+    ".YYYYYYYGGGGGG..",
+    "...YYYGGGGGG....",
+    ".....YGGGG......",
+    "................",
+    "................"]},
+  c_notion:{ colors:{w:"#eae7ff",d:"#8f8ac4"}, rows:[
+    "................",
+    ".wwwwwwwwwwww...",
+    ".wddddddddddw...",
+    ".wdwd....dwdw...",
+    ".wdwwd...dwdw...",
+    ".wdwdwd..dwdw...",
+    ".wdwd.wd.dwdw...",
+    ".wdwd..wddwdw...",
+    ".wdwd...wdwdw...",
+    ".wdwd....dwdw...",
+    ".wddddddddddw...",
+    ".wwwwwwwwwwww...",
+    "................"]},
+  c_canva:{ colors:{C:"#41e2ba",v:"#6c5ce7",w:"#eae7ff"}, rows:[
+    "................",
+    "....vvvvvv......",
+    "..vvCCCCCCvv....",
+    ".vCCwwwwCCCCv...",
+    ".vCCwwCCCCCCv...",
+    ".vCCwCCCCCCCv...",
+    ".vCCwCCCCCCCv...",
+    ".vCCwwCCCCCCv...",
+    ".vCCwwwwCCCCv...",
+    "..vvCCCCCCvv....",
+    "....vvvvvv......",
+    "................"]},
   flask:{ colors:{C:"#8f8ac4",P:"#ff9f43",g:"#ffd23f"}, rows:[
     "................",
     ".....CCCCC......",
@@ -497,6 +585,22 @@ PARTY.forEach(a=>{
     </div>`;
   partyEl.appendChild(card);
   drawSprite(card.querySelector("canvas"), a.sprite);
+});
+
+/* ================= CONNECTORS ================= */
+const connsEl = document.getElementById("conns");
+CONNECTORS.forEach(c=>{
+  const d=document.createElement("div"); d.className="conn bevel";
+  d.innerHTML=`
+    <canvas class="gem" width="40" height="40" data-sprite="${c.sprite}"></canvas>
+    <div style="flex:1">
+      <div class="cn">${c.name}</div>
+      <div class="cstate ${c.stClass}">● ${c.state}</div>
+      <div class="cuse"><b style="color:var(--ink)">${c.account}</b><br>${c.use}</div>
+      <div class="cwho">${c.who.map(w=>`<span>${w}</span>`).join("")}</div>
+    </div>`;
+  connsEl.appendChild(d);
+  drawSprite(d.querySelector("canvas"), c.sprite);
 });
 
 /* ================= INVENTORY ================= */

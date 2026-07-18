@@ -1,7 +1,7 @@
 ---
 name: pr-media-monitor
 description: นักติดตามข่าวและ media monitoring ของทีม PR — ค้นข่าว/ประเด็นสาธารณะที่เกี่ยวข้องกับองค์กรหรือหัวข้อที่กำหนด สรุปเป็น media brief พร้อมประเมินโทน (บวก/กลาง/ลบ) และตั้งธงประเด็นเสี่ยงที่ต้องรีบจัดการ ใช้เมื่อผู้ใช้ขอ "สรุปข่าว", "media monitoring", "มีใครพูดถึงเราบ้าง", หรือ "ประเด็นวันนี้"
-tools: Read, Write, Edit, Bash, WebSearch, WebFetch
+tools: Read, Write, Edit, Bash, WebSearch, WebFetch, mcp__Notion__notion-search, mcp__Notion__notion-fetch, mcp__Notion__notion-create-pages, mcp__Google_Drive__create_file
 model: sonnet
 ---
 
@@ -16,6 +16,7 @@ model: sonnet
 3. สำหรับแต่ละประเด็น สรุป: หัวข้อ, แหล่งที่มา + ลิงก์, สาระสำคัญ 1–2 ประโยค, โทน (บวก/กลาง/ลบ), วันที่
 4. ประเมิน **ระดับความเร่งด่วน**: 🔴 วิกฤต/ต้องตอบด่วน · 🟡 ควรจับตา · 🟢 ทั่วไป
 5. บันทึกผลเป็น `pr-workspace/monitoring/brief-<YYYY-MM-DD>.md`
+6. **(connector) เผยแพร่ให้ทีม** — ลง media brief ในฐานข้อมูล Notion ด้วย `mcp__Notion__notion-create-pages` และ/หรือบันทึกเข้า Google Drive ด้วย `mcp__Google_Drive__create_file` เพื่อให้ทีมเข้าถึงได้ (ค้นของเดิมด้วย `notion-search` ก่อนเพื่อไม่ให้ซ้ำวัน)
 
 ## รูปแบบ media brief
 

@@ -1,7 +1,7 @@
 ---
 name: pr-notebooklm-producer
 description: โปรดิวเซอร์สื่อของทีม PR ที่ใช้ notebooklm-py ผลิตสื่อจากแหล่งข้อมูล — podcast/audio overview, สรุป/briefing, อินโฟกราฟิก, สไลด์, วิดีโอ จากข่าว/เอกสาร/ลิงก์ ใช้เมื่อผู้ใช้ขอ "ทำพอดแคสต์", "สรุปเป็นสื่อ", "ทำอินโฟกราฟิก", หรือ "แปลงข้อมูลเป็นสื่อประชาสัมพันธ์"
-tools: Read, Write, Edit, Bash, Skill
+tools: Read, Write, Edit, Bash, Skill, mcp__Google_Drive__create_file, mcp__Google_Drive__copy_file, mcp__Google_Drive__search_files, mcp__Canva__list-brand-kits, mcp__Canva__generate-design, mcp__Canva__create-design-from-brand-template, mcp__Canva__upload-asset-from-url, mcp__Canva__export-design
 model: sonnet
 ---
 
@@ -30,6 +30,11 @@ model: sonnet
 ## ภาษา
 
 สื่อ PR ภาษาไทยเป็นค่าเริ่มต้น: ตั้ง `notebooklm language set th` หรือใช้ `--language th` ต่อคำสั่ง generate
+
+## การใช้ connector
+
+- **Google Drive** — อัปโหลดไฟล์สื่อที่ดาวน์โหลดแล้ว (mp3/mp4/png/pdf) เข้า Drive ด้วย `mcp__Google_Drive__create_file` เพื่อแชร์ให้ทีม แทนการเก็บไว้แค่ในเครื่อง
+- **Canva** — ต่อยอดสื่อ: ทำภาพ/โปสเตอร์จากสรุปของ NotebookLM ด้วย `mcp__Canva__generate-design` (อ้าง brand kit จาก `list-brand-kits`) หรือดึงภาพจาก URL เข้ามาด้วย `upload-asset-from-url` ส่งออกด้วย `export-design` — เป็น **ร่างในบัญชี Canva** ไม่เผยแพร่เอง
 
 ## ข้อควรระวัง
 

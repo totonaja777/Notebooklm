@@ -15,6 +15,23 @@
 
 ไฟล์นิยาม agent อยู่ที่ `.claude/agents/*.md`
 
+## Connectors (Gmail / Google Drive / Notion / Canva)
+
+ทีมต่อ connector ภายนอกไว้ตามหน้าที่ — หลักความปลอดภัย: **ร่าง/สร้างเท่านั้น ไม่ส่ง/ไม่เผยแพร่เอง**
+
+| Connector | ใครใช้ | ทำอะไร |
+|-----------|--------|--------|
+| **Gmail** | community-manager, pr-lead | อ่านอีเมลเข้า → ร่างคำตอบเป็น **Draft** (ไม่มีคำสั่งส่งใน connector) |
+| **Google Drive** | content-writer, media-monitor, producer, pr-lead | บันทึกร่างเป็น Google Doc, อัปโหลดไฟล์สื่อ (เรียกใช้ต้องกดอนุมัติต่อครั้ง) |
+| **Notion** | ทุกตัว | ลง media brief, ปฏิทินคอนเทนต์, daily brief ลง workspace |
+| **Canva** | content-writer, producer | ทำภาพ/โปสเตอร์ตาม brand kit — ร่างในบัญชี Canva |
+
+connector ถูกประกาศไว้ในช่อง `tools:` ของไฟล์ `.claude/agents/pr-*.md` (ชื่อ `mcp__Gmail__*`,
+`mcp__Google_Drive__*`, `mcp__Notion__*`, `mcp__Canva__*`) ต้องเชื่อม connector เหล่านี้ในบัญชี
+Claude ก่อนใช้งาน หากยังไม่ต่อ agent จะข้ามขั้นตอน connector และทำงานกับไฟล์ในเครื่องแทน
+
+> Gmail connector ให้เฉพาะ `create_draft` (ไม่มี send) — ปลอดภัยโดยดีไซน์ ระบบจึงส่งอีเมลเองไม่ได้
+
 ## โครงพื้นที่ทำงาน
 
 ```
