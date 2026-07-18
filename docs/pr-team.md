@@ -73,6 +73,23 @@ pr-workspace/
 - ประเด็นวิกฤต/ร้องเรียน/คำถามสื่อ/กฎหมาย จะถูกตั้งธง 🔴 "ต้องให้คนตรวจก่อน"
 - ข้อมูลที่ไม่ยืนยันจะถูกเว้นเป็น `[ตรวจสอบ: ...]` ไม่แต่งข้อมูลขึ้นเอง
 
+### ตั้ง Routine ให้พก connector (สร้างเองจากหน้า Routines)
+
+Routine ที่จะให้รอบอัตโนมัติใช้ Gmail/Notion/Canva/Drive ได้ ต้องถูกสร้างจากที่ที่เลือก connector
+ได้ — ทำเองที่ **claude.ai → Routines** ตามสเปกนี้:
+
+| ช่อง | ค่า |
+|------|-----|
+| Name | ทีม PR อัตโนมัติ — งานประจำวัน |
+| Schedule | ทุกวัน 08:00 น. (ไทย) = cron `0 1 * * *` (01:00 UTC) |
+| Environment | Default (env_019Mz3zaUAVTNtwbVpkh2Geb) |
+| Mode | สร้าง session ใหม่ทุกครั้งที่ยิง |
+| Connectors | เลือก **Gmail, Google Drive, Notion, Canva** |
+| Notifications | Push |
+| Prompt | คัดลอกจาก `pr-workspace/routine-prompt.txt` |
+
+จากนั้น **ปิด/ลบ Routine เดิม** ชื่อเดียวกัน (`trig_017fA2TwKF2SMAfYW6ovmKQR`) เพื่อไม่ให้รันซ้ำวันละสองรอบ
+
 ### จัดการ Routine
 
 ดู/แก้/ลบ Routine ได้ผ่านผู้ช่วย เช่น "แสดง Routine ทั้งหมด", "เปลี่ยนเวลารันทีม PR เป็น 9 โมง",

@@ -1,0 +1,15 @@
+คุณกำลังเริ่ม session ใหม่บน cloud เพื่อรันทีมประชาสัมพันธ์อัตโนมัติของ repo totonaja777/Notebooklm บนแบรนช์ claude/agent-team-automation-cloud-38ca0u
+
+ทีมนี้มี connector ต่อไว้แล้ว: Gmail, Google Drive, Notion, Canva ใช้ได้ตามหน้าที่ของแต่ละ agent
+
+ทำตามนี้:
+1. ตรวจว่าอยู่บนแบรนช์ claude/agent-team-automation-cloud-38ca0u และ pull ล่าสุด
+2. อ่าน pr-workspace/daily-runbook.md แล้วใช้ subagent pr-lead รันเวิร์กโฟลว์งาน PR ประจำวัน:
+   - pr-media-monitor สรุปข่าวตาม keywords แล้วลง media brief ใน Notion/Drive
+   - pr-community-manager อ่านอีเมลใหม่ใน Gmail (in:inbox newer_than:1d) + ไฟล์ใน pr-workspace/inbox แล้วร่างคำตอบเป็น Gmail draft (ห้ามส่งเอง)
+   - pr-content-writer ร่างคอนเทนต์ ลง Google Doc/Notion และทำภาพด้วย Canva (อ้าง brand kit) ถ้าเหมาะสม
+   - pr-notebooklm-producer ทำสื่อถ้าจำเป็น แล้วอัปโหลดเข้า Drive
+3. กฎเหล็ก: ทุกผลลัพธ์เป็น "ร่าง" เท่านั้น — ห้ามส่งอีเมล/โพสต์/เผยแพร่ออกภายนอกเอง (Gmail ให้สร้างแบบร่างเท่านั้น, Canva/Notion/Drive เป็นงานภายใน) ประเด็นวิกฤต/ร้องเรียน/สื่อ/กฎหมาย ตั้งธง 🔴 ให้คนตรวจก่อน ไม่แต่งข้อมูล ใช้ [ตรวจสอบ: ...] เมื่อไม่แน่ใจ
+4. สรุป daily brief เป็น pr-workspace/daily-brief-<วันที่>.md และเผยแพร่หน้าเดียวกันขึ้น Notion
+5. commit ร่างที่ควรเก็บ (ยกเว้นไฟล์ใน pr-workspace/.gitignore และไฟล์สื่อขนาดใหญ่) แล้ว push ขึ้นแบรนช์เดิม
+6. สรุปสั้น ๆ ว่าวันนี้ทำอะไรไปบ้าง และมีประเด็น 🔴 อะไรที่ต้องให้คนตรวจ
