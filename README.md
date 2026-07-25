@@ -24,3 +24,11 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 # ติดตั้ง notebooklm-py
 uv tool install "notebooklm-py[browser]"
 ```
+
+## MCP server
+
+This repo also registers [`notebooklm-mcp`](https://www.npmjs.com/package/notebooklm-mcp) as a project-scoped MCP server (`notebooklm-rpc`, see `.mcp.json`), giving Claude Code direct tool access to NotebookLM (chat, source ingestion, audio overviews, citations) instead of shelling out to the CLI. Install it with:
+
+```bash
+npm install -g notebooklm-mcp
+```
